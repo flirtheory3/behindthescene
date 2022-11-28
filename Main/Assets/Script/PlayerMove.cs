@@ -13,10 +13,8 @@ public class PlayerMove : MonoBehaviour {
 	BoxCollider2D col2d;
 	public float maxSpeed;
 	public bool isJump;
-	public float jumpPower = 0;
+	public float jumpPower = 1.6f;
 	float param = 1;
-
-
 	void Awake () 
 	{
 		rigid = GetComponent<Rigidbody2D>();
@@ -74,13 +72,8 @@ public class PlayerMove : MonoBehaviour {
 					anim.SetBool("IsJump", false);
 				}
             }
+
         }
-		if (isJump == true)
-			rigid.sharedMaterial = bounce;
-		if(isJump == true){
-			anim.SetBool("IsWalk",false);
-			anim.SetBool("IsJump",true);
-		}
 		}
 
 	void Update() //단발적인 키업데이트
@@ -106,6 +99,7 @@ public class PlayerMove : MonoBehaviour {
 		if (Input.GetButtonUp("Jump") && isJump == false){
 			anim.SetBool("IsReadyJump", false);
 			anim.SetBool("IsJump", true);
+			isJump = true;
 			if (h > 0)
             {
 				spriteRenderer.flipX = false;
@@ -120,8 +114,13 @@ public class PlayerMove : MonoBehaviour {
             {
 				rigid.AddForce(Vector2.up * jumpPower * param, ForceMode2D.Impulse);
             }	
-			isJump = true;
-			jumpPower = 0;
+			jumpPower = 1.6f;
+		}
+				if (isJump == true){
+			rigid.sharedMaterial = bounce;
+			anim.SetBool("IsWalk",false);
+			anim.SetBool("IsJump",true);
+
 		}
 
 		// 애니메이션
