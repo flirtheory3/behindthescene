@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class Stg2Go : MonoBehaviour
 {
     public GameObject Player;
+    SpriteRenderer sr;
     [SerializeField]
     private Image E;
     bool Cango2;
