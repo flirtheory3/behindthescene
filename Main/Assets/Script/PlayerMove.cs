@@ -65,15 +65,17 @@ public class PlayerMove : MonoBehaviour {
 			isJump = true;
 			if(rayHit.collider != null)
             {
+				rigid.sharedMaterial = null;
 				if (rayHit.distance < 1)
                 {
 					isJump = false;
-					rigid.sharedMaterial = null;
 					anim.SetBool("IsJump", false);
 				}
             }
-
-        }
+			if(rayHit.collider == null){
+			rigid.sharedMaterial = bounce;
+		}
+		}
 		}
 
 	void Update() //단발적인 키업데이트
@@ -122,6 +124,7 @@ public class PlayerMove : MonoBehaviour {
 			anim.SetBool("IsJump",true);
 
 		}
+
 
 		// 애니메이션
 		if (Input.GetButtonUp("Horizontal") && isJump == false)
